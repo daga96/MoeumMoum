@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import vowels from "../constants/vowels";
 
-const VowelFormants = ({ formants, korean }) => {
+const VowelFormants = ({ formants, korean, width = 800, height = 600 }) => {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -40,26 +40,27 @@ const VowelFormants = ({ formants, korean }) => {
       svg.selectAll(".dot-korean").remove();
       svg.selectAll(".text-korean").remove();
     }
-  }, [korean, formants]);
+  }, [korean, formants, width, height]);
 
   const F1 = Object.values(formants).map((item) => item.f1);
   const F2 = Object.values(formants).map((item) => item.f2);
 
   const margin = { top: 20, right: 20, bottom: 40, left: 40 };
-  const width = 800 - margin.left - margin.right;
-  const height = 600 - margin.top - margin.bottom;
 
-  const xScale = d3.scaleLinear().domain([3000, 500]).range([0, width]);
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
 
-  const yScale = d3.scaleLinear().domain([1000, 200]).range([height, 0]);
+  const xScale = d3.scaleLinear().domain([3000, 500]).range([0, innerWidth]);
+
+  const yScale = d3.scaleLinear().domain([1000, 200]).range([innerHeight, 0]);
 
   return (
     <svg
       ref={svgRef}
       id="plot"
       className="max-w-full max-h-full"
-      width={width + margin.left + margin.right}
-      height={height + margin.top + margin.bottom}
+      width={width}
+      height={height}
     >
       <g transform={`translate(${margin.left},${margin.top})`}>
         {F1.map((f1, i) => (
@@ -85,7 +86,7 @@ const VowelFormants = ({ formants, korean }) => {
         ))}
         <g
           className="axis"
-          transform={`translate(0,${height})`}
+          transform={`translate(0,${innerHeight})`}
           ref={(node) => d3.select(node).call(d3.axisBottom(xScale))}
         />
         <g className="grid">
@@ -94,7 +95,7 @@ const VowelFormants = ({ formants, korean }) => {
               key={tick}
               x1={0}
               y1={yScale(tick)}
-              x2={width}
+              x2={innerWidth}
               y2={yScale(tick)}
               stroke="gray"
               strokeWidth={1}
@@ -107,7 +108,7 @@ const VowelFormants = ({ formants, korean }) => {
               x1={xScale(tick)}
               y1={0}
               x2={xScale(tick)}
-              y2={height}
+              y2={innerHeight}
               stroke="gray"
               strokeWidth={1}
               opacity={0.3}
@@ -121,14 +122,18 @@ const VowelFormants = ({ formants, korean }) => {
         <text
           className="axis-label"
           textAnchor="middle"
-          transform={`translate(${width / 2},${height + margin.top + 10})`}
+          transform={`translate(${innerWidth / 2},${
+            innerHeight + margin.top + 10
+          })`}
         >
           F2 Frequency (Hz)
         </text>
         <text
           className="axis-label"
           textAnchor="middle"
-          transform={`translate(${-margin.left + 20},${height / 2})rotate(-90)`}
+          transform={`translate(${-margin.left + 20},${
+            innerHeight / 2
+          })rotate(-90)`}
         >
           F1 Frequency (Hz)
         </text>

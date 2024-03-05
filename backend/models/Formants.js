@@ -7,7 +7,7 @@ const formantSchema = new Schema({
     ref: "User",
   },
   languages: {
-    type: String,
+    type: Array,
     ref: "User",
   },
   formants: {

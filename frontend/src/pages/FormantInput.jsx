@@ -10,12 +10,12 @@ const FormantsInput = () => {
     o: { f1: "", f2: "" },
     u: { f1: "", f2: "" },
     eu: { f1: "", f2: "" },
-    o: { f1: "", f2: "" },
+    i: { f1: "", f2: "" },
     e: { f1: "", f2: "" },
   });
   const navigate = useNavigate();
   const nickname = localStorage.getItem("nickname");
-  const languages = localStorage.getItem("languages");
+  const languages = JSON.parse(localStorage.getItem("languages"));
 
   const handleChange = (vowel, formant, value) => {
     setFormants((prevFormants) => ({
@@ -46,8 +46,8 @@ const FormantsInput = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-100">
-      <div className="flex flex-col items-center">
-        <h2 className="text-xl font-semibold mb-4 text-blue-500">
+      <div className="flex flex-col items-center p-8 bg-white rounded-md shadow-lg ">
+        <h2 className="text-xl font-semibold mb-4 text-gray-800">
           Input F1 and F2 formants for each vowel
         </h2>
         <div className="grid grid-cols-2 gap-4">
@@ -55,7 +55,7 @@ const FormantsInput = () => {
             <div key={vowel} className="mb-4">
               <h3 className="text-lg font-medium mb-2">{vowel}</h3>
               <div className="flex items-center mb-2">
-                <label className="mr-2">F1:</label>
+                <label className="mr-2 text-gray-800">F1:</label>
                 <input
                   type="text"
                   value={f1}
@@ -64,7 +64,7 @@ const FormantsInput = () => {
                 />
               </div>
               <div className="flex items-center">
-                <label className="mr-2">F2:</label>
+                <label className="mr-2 text-gray-800">F2:</label>
                 <input
                   type="text"
                   value={f2}
@@ -75,7 +75,10 @@ const FormantsInput = () => {
             </div>
           ))}
         </div>
-        <button className="bg-blue-500 text-white" onClick={handleAddFormants}>
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          onClick={handleAddFormants}
+        >
           Save values
         </button>
       </div>

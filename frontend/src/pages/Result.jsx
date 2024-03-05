@@ -18,9 +18,23 @@ const Result = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-100">
-      <div className="rounded-md bg-white p-8">
-        <h3>Hi {nickname} </h3>
+    <div className="min-h-screen  flex flex-col items-center bg-blue-100">
+      <nav className="w-full bg-gray-800 p-4">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div>
+            <a href="/result" className="text-white mr-4">
+              My Result
+            </a>
+            <a href="/dashboard" className="text-white">
+              Users Dashboard
+            </a>
+          </div>
+        </div>
+      </nav>
+      <div className="flex flex-col w-3/6 items-center bg-white rounded-md shadow-lg  mt-8 p-8">
+        <h3>
+          Hi <b>{nickname}</b>{" "}
+        </h3>
         <label className="inline-flex items-center cursor-pointer">
           <input
             type="checkbox"

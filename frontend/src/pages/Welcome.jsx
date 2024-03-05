@@ -20,16 +20,15 @@ const Welcome = () => {
         nickname,
         languages: tags,
       });
-      console.log(addUserResult);
 
-      if (addUserResult.message == "User Exists") {
+      if (addUserResult.message === "User Exists") {
         localStorage.setItem("nickname", addUserResult.data.nickname);
         localStorage.setItem(
           "languages",
           JSON.stringify(addUserResult.data.languages)
         );
         navigate("/result");
-      } else if (addUserResult.message == "User Created Successfully") {
+      } else if (addUserResult.message === "User Created Successfully") {
         localStorage.setItem("nickname", nickname);
         localStorage.setItem("languages", JSON.stringify(tags));
         navigate("/form");
@@ -39,10 +38,18 @@ const Welcome = () => {
     }
   };
 
+  const handleLanguageSelect = (e) => {
+    const selected = e.target.value;
+    if (selected && !tags.includes(selected)) {
+      setTags([...tags, selected]);
+    }
+    setSelectedLanguage("");
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-100">
-      <div className="text-center p-8 bg-blue-200 rounded-md">
-        <h1 className="text-4xl font-bold text-blue-500 mb-8">모음 모움</h1>
+      <div className="text-center p-8 bg-white rounded-md shadow-lg">
+        <h1 className="text-4xl font-bold text-blue-500 mb-2">모음 모움</h1>
         <h3 className="font-bold text-blue-500 mb-8">MOEUMMOUM</h3>
         <div className="mb-4">
           <input
@@ -56,7 +63,7 @@ const Welcome = () => {
         <div className="mb-4 relative">
           <select
             value={selectedLanguage}
-            onChange={(e) => setSelectedLanguage(e.target.value)}
+            onChange={handleLanguageSelect}
             className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:border-blue-500"
           >
             <option value="">Select Language</option>
@@ -66,19 +73,8 @@ const Welcome = () => {
               </option>
             ))}
           </select>
-          <button
-            onClick={() => {
-              if (selectedLanguage) {
-                setTags([...tags, selectedLanguage]);
-                setSelectedLanguage("");
-              }
-            }}
-            className="absolute inset-y-0 right-0 px-4 py-2 bg-blue-500 text-white rounded-md"
-          >
-            Add
-          </button>
         </div>
-        <div className="flex flex-wrap justify-center w-[420px] min-h-20 bg-white p-4 rounded-md">
+        <div className="flex flex-wrap justify-center w-[420px] min-h-20 border border-solid border-slate-300 p-4 mt-4 rounded-md">
           {tags.map((tag, index) => (
             <div
               key={index}

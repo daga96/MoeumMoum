@@ -23,3 +23,11 @@ export function getFormants(params) {
     data: params,
   });
 }
+
+export function getFormantsLanguage(params) {
+  return sendRequest({
+    url: `/getFormantsLang`,
+    method: "post",
+    data: params,
+  });
+}

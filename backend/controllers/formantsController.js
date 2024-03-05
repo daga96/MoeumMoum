@@ -20,9 +20,23 @@ exports.addFormants = asyncHandler(async (req, res) => {
 
 exports.getFormants = asyncHandler(async (req, res) => {
   const { nickname } = req.body;
-  console.log(nickname);
 
   const formantsList = await formantsModel.find({ nickname: nickname });
+
+  if (formantsList) {
+    result.success(res, formantsList, "Formants List Called Successfully");
+  } else {
+    result.error(res, 400, "Failed To Find Formants List ");
+  }
+});
+
+exports.getFormantsByLanguage = asyncHandler(async (req, res) => {
+  const { language } = req.body;
+
+  const formantsList = await formantsModel.find({
+    languages: language,
+  });
+
   console.log(formantsList);
 
   if (formantsList) {
