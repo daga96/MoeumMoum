@@ -5,7 +5,7 @@ const GraphCard = (data) => {
   return (
     <div className="h-[400px] w-[400px] bg-white rounded-md p-8">
       <div>
-        <VowelFormants formants={data.data.formants} width="333" height="250" />
+        <VowelFormants formants={data.data.formants} size="small" />
         <hr className="border-gray-500" />
         <div className="font-bold">{data.data.nickname}</div>
         <div className="flex">

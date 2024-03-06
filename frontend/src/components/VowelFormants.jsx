@@ -2,28 +2,38 @@ import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import vowels from "../constants/vowels";
 
-const VowelFormants = ({ formants, korean, width = 800, height = 600 }) => {
+// eslint-disable-next-line react/prop-types
+const VowelFormants = ({ formants, korean, size = "big" }) => {
   const svgRef = useRef(null);
 
+  let width, height;
+
+  if (size == "big") {
+    width = 800;
+    height = 600;
+  } else if (size == "small") {
+    width = 333;
+    height = 250;
+  }
   useEffect(() => {
     const svg = d3.select(svgRef.current);
 
     if (korean) {
-      const F1Data = [700, 530, 470, 350, 370, 300, 580];
-      const F2Data = [1230, 1840, 840, 1020, 1300, 2200, 2200];
+      const F1KoreanData = [700, 530, 470, 350, 370, 300, 580];
+      const F2KoreanData = [1230, 1840, 840, 1020, 1300, 2200, 2200];
 
       svg.selectAll(".dot-korean").remove();
       svg.selectAll(".text-korean").remove();
 
       svg
         .selectAll(".dot-korean")
-        .data(F1Data)
+        .data(F1KoreanData)
         .enter()
         .append("circle")
         .attr("class", "dot-korean")
         .attr("r", 5)
-        .attr("cx", (d, i) => xScale(F2Data[i]))
-        .attr("cy", (d, i) => yScale(F1Data[i]))
+        .attr("cx", (d, i) => xScale(F2KoreanData[i]))
+        .attr("cy", (d, i) => yScale(F1KoreanData[i]))
         .style("fill", "red");
 
       svg
@@ -32,20 +42,20 @@ const VowelFormants = ({ formants, korean, width = 800, height = 600 }) => {
         .enter()
         .append("text")
         .attr("class", "text-korean")
-        .attr("x", (d, i) => xScale(F2Data[i]))
-        .attr("y", (d, i) => yScale(F1Data[i]) - 10)
+        .attr("x", (d, i) => xScale(F2KoreanData[i]))
+        .attr("y", (d, i) => yScale(F1KoreanData[i]) - 10)
         .attr("text-anchor", "middle")
         .text((d) => d);
     } else {
       svg.selectAll(".dot-korean").remove();
       svg.selectAll(".text-korean").remove();
     }
-  }, [korean, formants, width, height]);
+  }, [korean, formants]);
 
   const F1 = Object.values(formants).map((item) => item.f1);
   const F2 = Object.values(formants).map((item) => item.f2);
 
-  const margin = { top: 20, right: 20, bottom: 40, left: 40 };
+  const margin = { top: 20, right: 20, bottom: 50, left: 50 };
 
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
@@ -87,7 +97,7 @@ const VowelFormants = ({ formants, korean, width = 800, height = 600 }) => {
         <g
           className="axis"
           transform={`translate(0,${innerHeight})`}
-          ref={(node) => d3.select(node).call(d3.axisBottom(xScale))}
+          ref={(node) => d3.select(node).call(d3.axisBottom(xScale).ticks(4))}
         />
         <g className="grid">
           {yScale.ticks().map((tick) => (
@@ -117,7 +127,7 @@ const VowelFormants = ({ formants, korean, width = 800, height = 600 }) => {
         </g>
         <g
           className="axis"
-          ref={(node) => d3.select(node).call(d3.axisLeft(yScale))}
+          ref={(node) => d3.select(node).call(d3.axisLeft(yScale).ticks(4))}
         />
         <text
           className="axis-label"
@@ -131,7 +141,7 @@ const VowelFormants = ({ formants, korean, width = 800, height = 600 }) => {
         <text
           className="axis-label"
           textAnchor="middle"
-          transform={`translate(${-margin.left + 20},${
+          transform={`translate(${-margin.left + 15},${
             innerHeight / 2
           })rotate(-90)`}
         >

@@ -25,7 +25,6 @@ const Dashboard = () => {
         language: selectedLanguage,
       });
 
-      console.log(formantList.data);
       setFormants(formantList.data);
     } catch (error) {
       console.error("Error fetching formants data:", error);

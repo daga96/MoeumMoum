@@ -31,9 +31,9 @@ const Result = () => {
           </div>
         </div>
       </nav>
-      <div className="flex flex-col w-3/6 items-center bg-white rounded-md shadow-lg  mt-8 p-8">
+      <div className="flex flex-col w-4/6 items-center bg-white rounded-md shadow-lg  mt-8 p-8">
         <h3>
-          Hi <b>{nickname}</b>{" "}
+          Hi <b>{nickname}</b>
         </h3>
         <label className="inline-flex items-center cursor-pointer">
           <input
