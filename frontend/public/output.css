@@ -641,8 +641,8 @@ video {
   width: 2.75rem;
 }
 
-.w-3\/6 {
-  width: 50%;
+.w-4\/6 {
+  width: 66.666667%;
 }
 
 .w-\[400px\] {
@@ -659,10 +659,6 @@ video {
 
 .w-screen {
   width: 100vw;
-}
-
-.w-4\/6 {
-  width: 66.666667%;
 }
 
 .transform {

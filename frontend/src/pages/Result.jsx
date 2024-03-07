@@ -11,7 +11,6 @@ const Result = () => {
     const getFormantsData = async () => {
       const formantList = await getFormants({ nickname: nickname });
 
-      console.log(formantList);
       setFormants(formantList.data[0].formants);
     };
     getFormantsData();
