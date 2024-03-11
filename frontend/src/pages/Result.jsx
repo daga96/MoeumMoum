@@ -14,7 +14,7 @@ const Result = () => {
       setFormants(formantList.data[0].formants);
     };
     getFormantsData();
-  }, []);
+  }, [nickname]);
 
   return (
     <div className="min-h-screen  flex flex-col items-center bg-blue-100">
